@@ -35,16 +35,18 @@ around but the whole idea of this is to automate the VPN-stuff)
 	echo -e 'USER\nPASS' > /etc/openvpn/hse/up;
 	chmod 600 /etc/openvpn/hse/up;
 ```
+Make sure you change the password everytime you change your university password,
+else you won't be able to connect anymore.
 
 Link your hse.ovpn into the openvpn-root directory so our VPN script will be able
 to find it.
 ```
 	ln -s /etc/openvpn/hse/hse.ovpn /etc/openvpn/hse.ovpn
 ```
-
-Make sure you change the password everytime you change your university password,
-else you won't be able to connect anymore.
-
+Create logging ability by adding an openvpn directory to /var/log
+```
+	mkdir /var/log/openvpn
+```
 Copy the VPN script to /bin and make it executable by root, readable by others.
 If you don't want ordinary users to be able to read that file replace 744 by 700.
 ```
