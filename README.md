@@ -2,19 +2,19 @@ VPN
 ===
 Since my university offers me a VPN to connect to their LAN, I wanted to automate
 this process as much as possible. Therefore I tweaked the official VPN-config a
-little, wrote my own openvpn start/stop wrapper and added all of it to my
+little, wrote my own OpenVPN start/stop wrapper and added all of it to my
 /etc/network/interfaces.
 
 Prerequisites
 -------------
 * Debian (or at least Debian-based) OS
-* openvpn installed 
+* OpenVPN installed 
 * VPN configured according to [university's guide](https://www.hs-esslingen.de/de/hochschule/service/rechenzentrum/mobile-net-wlan-openvpn/anleitungen-mobile-net/linux-kommandozeile.html)
 
 ToDo
 ----
 If you're interested in my changes, compare your client.conf with my hse.ovpn.
-After you're satisfied move your openvpn-config into its own directory to make
+After you're satisfied move your OpenVPN-config into its own directory to make
 sure you can use several VPNs at once.
 ```
 	mkdir /etc/openvpn/hse;
@@ -24,7 +24,10 @@ sure you can use several VPNs at once.
 You can keep the original client.conf but you won't need it anymore. To reduce
 the possibility of conflicts I recommend that you remove it entirely.
 ```
-	rm /etc/openvpn/hse/client.conf
+	rm /etc/openvpn/hse/client.conf;
+	cp etc/openvpn/hse/hse.ovpn /etc/openvpn/hse/hse.ovpn;
+	chown 0:0 /etc/openvpn/hse/hse.ovpn;
+	chmod 644 /etc/openvpn/hse/hse.ovpn;
 ```
 
 You should now create the file up which contains your username and password.
@@ -38,14 +41,14 @@ around but the whole idea of this is to automate the VPN-stuff)
 Make sure you change the password everytime you change your university password,
 else you won't be able to connect anymore.
 
-Link your hse.ovpn into the openvpn-root directory so our VPN script will be able
+Link your hse.ovpn into the OpenVPN-root directory so our VPN script will be able
 to find it.
 ```
-	ln -s /etc/openvpn/hse/hse.ovpn /etc/openvpn/hse.ovpn
+	ln -s /etc/openvpn/hse/hse.ovpn /etc/openvpn/hse.ovpn;
 ```
 Create logging ability by adding an openvpn directory to /var/log
 ```
-	mkdir /var/log/openvpn
+	mkdir /var/log/openvpn;
 ```
 Copy the VPN script to /bin and make it executable by root, readable by others.
 If you don't want ordinary users to be able to read that file replace 744 by 700.
@@ -63,7 +66,7 @@ Your WiFi should now connect to the VPN/WEB WiFi at Esslingen University and run
 the required VPN tunnel automagically
 
 ```
-	ifup wlan0=hse
+	ifup wlan0=hse;
 ```
 
 You can check this by running your favourite network tests
