@@ -1,0 +1,6 @@
+
+iface hse inet dhcp
+	wpa-ssid VPN/WEB
+	wpa-key-mgmt NONE
+	up vpn start hse
+	down vpn stop hse
