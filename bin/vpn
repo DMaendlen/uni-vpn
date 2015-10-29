@@ -1,1 +1,20 @@
-/bin/vpn
+#!/bin/bash
+# usage: vpn <start|stop> <vpn-name>
+# simple script to easily turn on/off vpns
+# expects a config-file called $name.ovpn in $vpnroot
+
+vpnroot=/etc/openvpn
+
+case $1 in
+	"start")
+		nohup openvpn --config $vpnroot/$2.ovpn >/dev/null &
+		exit 0
+		;;
+	"stop")
+		kill $(cat /var/run/openvpn/$2)
+		exit 0
+		;;
+	*)
+		echo "Usage: vpn <start|stop> <vpn-name>"
+		exit 1
+esac
