@@ -56,10 +56,10 @@ If you don't want ordinary users to be able to read that file replace 744 by 700
 cp bin/vpn /bin/vpn;
 chmod 744 /bin/vpn;
 ```
-
-Append the necessary WiFi information to your /etc/network/interfaces
+Make sure, your /etc/network/interfaces sources everything from /etc/network/interfaces.d/*
+and copy the interface declaration there.
 ```bash
-cat etc/network/interfaces >> /etc/network/interfaces;
+cp etc/network/interfaces.d/hse /etc/network/interfaces.d/;
 ```
 
 Your WiFi should now connect to the VPN/WEB WiFi at Esslingen University and run
